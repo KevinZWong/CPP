@@ -1,0 +1,1 @@
+Paper covers rock - player 1 wins
