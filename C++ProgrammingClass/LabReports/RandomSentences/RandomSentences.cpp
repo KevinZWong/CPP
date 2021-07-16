@@ -75,7 +75,6 @@ int main(int argc, const char * argv[])
         selection = rand()%artCount; 
         sentence += article[selection];  
         sentence += " "; 
-        cout << sentence << endl;   
         //adjective    
         selection = rand()%adjCount;
         sentence += adjective[selection]; 
