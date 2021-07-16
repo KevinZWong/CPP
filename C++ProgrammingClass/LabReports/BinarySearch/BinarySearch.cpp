@@ -2,9 +2,12 @@
 // SearchingLab.cpp : Searches a data file a) by seqential search, then b) binary search
 //   NOTE: The data file must be sorted for the binary search to be successful
 //
+#include <stdio.h>
+#include <string.h>
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include <cstring> // string to array
 using namespace std;
 
 #define debug_messages 1
@@ -27,7 +30,7 @@ int main(int argc, char* argv[])
 {
     PhoneRec List[LIST_LENGTH];     // [length][width]
     char line[LINE_SIZE];           // line of text from the disk
-    char filename[] = "/Users/Dan/Desktop/phony422.txt";
+    char filename[] = "phony422.txt";
     char* ptr;
     int  searchCounter = 0;
 
@@ -57,11 +60,7 @@ int main(int argc, char* argv[])
             strcpy_s(List[listsize].number, NUMBER_SIZE, ptr); // copy to array, position listsize
 
          // VERSION-2
-         // Uncomment these 4 lines on a Mac using Xcode or other systems
-         // ptr = strtok(line, ".");                 // find name, separated by '.' character
-         // strcpy (List[listsize].name, ptr);       // copy name to array, position listsize
-         // ptr = strtok(NULL, ".\r\n");             // find phone number
-         // strcpy (List[listsize].number, ptr);     // copy to array, position listsize
+
 
             listsize++;
         }
@@ -76,12 +75,21 @@ int main(int argc, char* argv[])
 
     /////////// request a search string, then find it //////////
     char searchString[80];
-    cout << "Enter a phone number: ";
+    cout << "Enter a phone number or a name: ";
     // cin >> searchString;  // works fine for the phone number, but not the name
     // This is because the names have space characters. cin >> searchString stops
     // reading the input as soon as it sees a space and part of the name is lost
     // Use cin.getline(searchString,80);   instead to read a fill line from the keyboard.
     cin.getline(searchString, 80);
+    cout << "##########################\n";
+    cout << searchString[0];
+    int numList[10] ={'1','2','3','4','5','6','7','8','9','0'};
+    for (int i = 0; i < 10.1; i = i+1) {
+        if (searchString[0] == numList[i])
+            cout << "hi";
+    }
+    
+
 
     /////////////////////////////////////////////////////
     /////////// sequential search ///////////////////////
@@ -146,4 +154,3 @@ int main(int argc, char* argv[])
 
     return 0;
 }
-{"mode":"full","isActive":false}
