@@ -1,7 +1,9 @@
-//
-// SearchingLab.cpp : Searches a data file a) by seqential search, then b) binary search
-//   NOTE: The data file must be sorted for the binary search to be successful
-//
+/*
+BinarySearch
+7/16/2021
+Version 2
+Kevin Wong
+*/
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
@@ -81,76 +83,148 @@ int main(int argc, char* argv[])
     // reading the input as soon as it sees a space and part of the name is lost
     // Use cin.getline(searchString,80);   instead to read a fill line from the keyboard.
     cin.getline(searchString, 80);
-    cout << "##########################\n";
-    cout << searchString[0];
+
+
     int numList[10] ={'1','2','3','4','5','6','7','8','9','0'};
+    string InputType = "Name";
     for (int i = 0; i < 10.1; i = i+1) {
-        if (searchString[0] == numList[i])
-            cout << "hi";
+        if (searchString[0] == numList[i]){
+            // means that what was inputed was a phone number
+            InputType = "Phone Number";
+        }
     }
-    
+    if (InputType != "Phone Number" ){
+        InputType = "Name";
+    }
 
 
-    /////////////////////////////////////////////////////
-    /////////// sequential search ///////////////////////
-    /////////////////////////////////////////////////////
-    bool found = false;
-    int  index;
-    for (index = 0; index < listsize; index++)
-    {
-        searchCounter++;
-        if (strstr(List[index].number, searchString))
+
+    if (InputType == "Phone Number"){ //#################################### Phone number start #########################################
+        /////////////////////////////////////////////////////
+        /////////// sequential search ///////////////////////
+        /////////////////////////////////////////////////////
+        bool found = false;
+        int  index;
+        for (index = 0; index < listsize; index++)
         {
-            found = true;
-            break;
+            searchCounter++;
+            if (strstr(List[index].number, searchString))
+            {
+                found = true;
+                break;
+            }
         }
-    }
-    if (found)
-    {
-        cout << "Customer name: " << List[index].name << endl;
-        cout << searchCounter << " tests were made" << endl;
-    }
-    else
-        cout << "Not found" << endl;
-
-    ///////////////////////////////////////////////////
-    //////////////// binary search ////////////////////
-    ///////////////////////////////////////////////////
-    searchCounter = 0;
-    index = 128;
-    int lowerBound = 0;
-    int upperBound = listsize - 1;
-    int midPoint = 0;
-
-    cout << "\n\n********** Starting the BINARY SEARCH **********\n";
-    found = false;
-    while (lowerBound <= upperBound)
-    {
-        searchCounter++;
-        midPoint = (lowerBound + upperBound) / 2;
-
-#if debug_messages == 1		
-        cout << searchCounter << " lowerBound = " << lowerBound << " midPoint=" << midPoint 
-            << " upperBound=" << upperBound << "  " << List[midPoint].name << endl;
-#endif
-
-        // IMPORTANT: Microsoft uses _stricmp  with the underscore as part of the function name
-        //   every other C/C++ compiler uses stricmp for string compare, ignore case
-        if (_strcmpi(List[midPoint].number, searchString) < 0)
-            lowerBound = midPoint + 1;    // getting closer, cutoff the lower half
-        else if (_strcmpi(List[midPoint].number, searchString) > 0)
-            upperBound = midPoint - 1;    // getting closer, cutoff the upper half
-        else {
-            found = true;
-            break;
+        if (found)
+        {
+            cout << "Customer name: " << List[index].name << endl;
+            cout << searchCounter << " tests were made" << endl;
         }
-    }
-    if (found) {    // found
-        cout << "Customer name: " << List[midPoint].name << endl;
-        cout << searchCounter << " tests were made" << endl;
-    }
-    else
-        cout << "Not found in " << searchCounter << " tries" << endl << endl;
+        else
+            cout << "Not found" << endl;
 
+        ///////////////////////////////////////////////////
+        //////////////// binary search ////////////////////
+        ///////////////////////////////////////////////////
+        searchCounter = 0;
+        index = 128;
+        int lowerBound = 0;
+        int upperBound = listsize - 1;
+        int midPoint = 0;
+
+        cout << "\n\n********** Starting the BINARY SEARCH **********\n";
+        found = false;
+        while (lowerBound <= upperBound)
+        {
+            searchCounter++;
+            midPoint = (lowerBound + upperBound) / 2;
+
+    #if debug_messages == 1		
+            cout << searchCounter << " lowerBound = " << lowerBound << " midPoint=" << midPoint 
+                << " upperBound=" << upperBound << "  " << List[midPoint].name << endl;
+    #endif
+
+            // IMPORTANT: Microsoft uses _stricmp  with the underscore as part of the function name
+            //   every other C/C++ compiler uses stricmp for string compare, ignore case
+            if (_strcmpi(List[midPoint].number, searchString) < 0)
+                lowerBound = midPoint + 1;    // getting closer, cutoff the lower half
+            else if (_strcmpi(List[midPoint].number, searchString) > 0)
+                upperBound = midPoint - 1;    // getting closer, cutoff the upper half
+            else {
+                found = true;
+                break;
+            }
+        }
+        if (found) {    // found
+            cout << "Customer name: " << List[midPoint].name << endl;
+            cout << searchCounter << " tests were made" << endl;
+        }
+        else
+            cout << "Not found in " << searchCounter << " tries" << endl << endl;
+    }
+     // ##################################### phone Number end ##########################################################
+
+else{
+        /////////////////////////////////////////////////////
+        /////////// sequential search ///////////////////////
+        /////////////////////////////////////////////////////
+        bool found = false;
+        int  index;
+        for (index = 0; index < listsize; index++)
+        {
+            searchCounter++;
+            if (strstr(List[index].name, searchString))
+            {
+                found = true;
+                break;
+            }
+        }
+        if (found)
+        {
+            cout << "Customer number: " << List[index].number << endl;
+            cout << searchCounter << " tests were made" << endl;
+        }
+        else
+            cout << "Not found" << endl;
+
+        ///////////////////////////////////////////////////
+        //////////////// binary search ////////////////////
+        ///////////////////////////////////////////////////
+        searchCounter = 0;
+        index = 128;
+        int lowerBound = 0;
+        int upperBound = listsize - 1;
+        int midPoint = 0;
+
+        cout << "\n\n********** Starting the BINARY SEARCH **********\n";
+        found = false;
+        while (lowerBound <= upperBound)
+        {
+            searchCounter++;
+            midPoint = (lowerBound + upperBound) / 2;
+
+    #if debug_messages == 1		
+            cout << searchCounter << " lowerBound = " << lowerBound << " midPoint=" << midPoint 
+                << " upperBound=" << upperBound << "  " << List[midPoint].name << endl;
+    #endif
+
+            // IMPORTANT: Microsoft uses _stricmp  with the underscore as part of the function name
+            //   every other C/C++ compiler uses stricmp for string compare, ignore case
+            if (_strcmpi(List[midPoint].name, searchString) < 0)
+                lowerBound = midPoint + 1;    // getting closer, cutoff the lower half
+            else if (_strcmpi(List[midPoint].name, searchString) > 0)
+                upperBound = midPoint - 1;    // getting closer, cutoff the upper half
+            else {
+                found = true;
+                break;
+            }
+        }
+        if (found) {    // found
+            cout << "Customer name: " << List[midPoint].number << endl;
+            cout << searchCounter << " tests were made" << endl;
+        }
+        else
+            cout << "Not found in " << searchCounter << " tries" << endl << endl;
+
+    }
     return 0;
 }
